@@ -123,7 +123,12 @@ def get_config():
     config['mounts'] = {}
     for d in config['dirs']:
         name = 'mount_%s' % urllib.quote(d,'')
-        config['mounts'][d] = select([bottle.request.get_cookie(name), 'file://%s' % d], [None, ''])
+	## get URL parts
+	url = bottle.request.urlparts
+	## make https:// webroot URL
+	url = '%ss://%s' % (url.scheme, url.netloc)
+	## Create mount using webroot URL instead of "file://"
+        config['mounts'][d] = select([bottle.request.get_cookie(name), '%s%s' % (url, d)], [None, ''])
     return config
 #}}}
 #{{{ get_dirs
