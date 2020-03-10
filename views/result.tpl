@@ -26,9 +26,10 @@
     <div class="search-result-url">
         %urllabel = os.path.dirname(d['url'].replace('file://', ''))
         %for r in config['dirs']:
+            %urllabel2 = urllabel
             %urllabel = urllabel.replace(r.rsplit('/',1)[0] + '/' , '')
         %end
-        <a href="{{os.path.dirname(url)}}">{{urllabel}}</a>
+        <a href="{{os.path.dirname(url)}}">{{urllabel2}}</a>
     </div>
     <div class="search-result-links">
         <a href="{{url}}">Open</a>
